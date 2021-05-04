@@ -1,16 +1,21 @@
 def badge_maker(name)
-  return "Hello, my name is #{name}."
+  "Hello, my name is #{name}."
 end
-
-def batch_badge_creator(array)
-  array.collect {|name| badge_maker(name)}
+def batch_badge_creator(attendees)
+  attendees.collect{ |attendee|
+    badge_maker(attendee)
+  }
 end
-
-def assign_rooms(array)
-  array.map.with_index {|name,i| "Hello, #{name}! You'll be assigned to room #{i+1}!"}
+def assign_rooms(attendees)
+  attendees.collect!.with_index{ |attendee,i|
+    "Hello, #{attendee}! You'll be assigned to room #{i+1}!"
+  }
 end
-
-def printer(array)
-  batch_badge_creator(array).each {|badge| puts badge}
-  assign_rooms(array).each {|room| puts room}
+def printer(attendees)
+  badges = batch_badge_creator(attendees)
+  assignments = assign_rooms(attendees)
+  badges.each_with_index { |badge, i|
+    puts badge
+    puts assignments[i]
+  }
 end
